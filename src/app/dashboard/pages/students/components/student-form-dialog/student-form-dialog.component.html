@@ -1,0 +1,65 @@
+<p mat-dialog-title appCabecera="20px">{{ title }}</p>
+<div mat-dialog-content>
+<form [formGroup]="studentForm" class="grid">
+    <div class="col-6 field">
+        <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input [formControl]="nombreControl" matInput type="text" name="nombre">
+        <mat-error *ngFor="let error of nombreControl.errors | keyvalue">
+            {{ error | controlErrorMessage}}
+        </mat-error>
+    </mat-form-field>
+    </div>
+    <div class="col-6 field">
+        <mat-form-field class="w-full" appearance="outline"> 
+        <mat-label>Apellido</mat-label>
+        <input [formControl]="apellidoControl" matInput type="text" name="apellido">
+        <mat-error *ngFor="let error of apellidoControl.errors | keyvalue">
+            {{ error | controlErrorMessage}}
+        </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-6 field">
+        <mat-form-field class="w-full" appearance="outline"> 
+        <mat-label>Email</mat-label>
+        <input [formControl]="emailControl" matInput type="email" name="email">
+        <mat-error *ngFor="let error of emailControl.errors | keyvalue">
+            {{ error | controlErrorMessage}}
+        </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-6 field">
+        <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Contraseña</mat-label> 
+        <input [formControl]="contraseniaControl" matInput type="password" name="contrasenia">
+        <mat-error *ngFor="let error of contraseniaControl.errors | keyvalue">
+            {{ error | controlErrorMessage}}
+        </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-6 field">
+        <mat-form-field class="w-full" appearance="outline"> 
+        <mat-label>Teléfono</mat-label>
+        <input [formControl]="telefonoControl" matInput type="text" name="telefono">
+        <mat-error *ngFor="let error of telefonoControl.errors | keyvalue">
+            {{ error | controlErrorMessage}}
+        </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-6 field">
+        <mat-form-field class="w-full" appearance="outline"> 
+        <mat-label>Nro documento</mat-label>
+        <input [formControl]="documentoControl" matInput type="number" name="documento">
+        <mat-error *ngFor="let error of documentoControl.errors | keyvalue">
+            {{ error | controlErrorMessage}}
+        </mat-error>
+        </mat-form-field>
+    </div>
+</form>
+</div>
+<div class="flex justify-content-end" mat-dialog-actions>
+    <button mat-flat-button mat-dialog-close color="primary">Cancelar</button>
+    <button (click)="onSubmit()" type="submit" mat-flat-button color="primary">Guardar</button>
+  </div>
+
+

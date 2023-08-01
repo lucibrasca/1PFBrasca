@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button (click)="drawer?.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span appCabecera="20px">HomeSchool</span>
+    <div class="my-menu-logout"> 
+        <button mat-icon-button [matMenuTriggerFor]="menu" >
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+            <mat-icon>account_circle</mat-icon>
+            <span appCabecera="20px">Cuenta</span>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>help_outline</mat-icon>
+                    <span appCabecera="20px">Ayuda</span>
+                </button>
+            <button mat-menu-item>
+            <mat-icon>logout</mat-icon>
+                <span appCabecera="20px">Salir</span>
+            </button>
+        </mat-menu>
+    </div>
+</mat-toolbar>

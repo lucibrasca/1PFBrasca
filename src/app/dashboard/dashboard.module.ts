@@ -5,15 +5,19 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu'; 
 import { SharedModule } from '../shared/shared.module';
-import { StudentsModule } from './pages/students/students.module';
-import { Component } from '@angular/core';
 import { CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
+import { RouterModule } from '@angular/router';
+import { MatListModule } from '@angular/material/list';
+import { NavMenuComponent } from './layout/nav-menu/nav-menu.component';
+import { ToolbarComponent } from './layout/toolbar/toolbar.component'; 
 
 
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    NavMenuComponent,
+    ToolbarComponent
   ],
   imports: [
     CommonModule,
@@ -21,9 +25,10 @@ import { CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
     MatToolbarModule,
     MatMenuModule,
     SharedModule,
-    StudentsModule,
     CdkMenu, 
-    CdkMenuItem
+    CdkMenuItem,
+    RouterModule,
+    MatListModule
   ],
   exports:[
     DashboardComponent

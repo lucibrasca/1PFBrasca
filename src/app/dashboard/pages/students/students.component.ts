@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentFormDialogComponent } from './components/student-form-dialog/student-form-dialog.component';
 import { Student } from './models';
+import { StudentsService } from  './students.service';
+import { Observable } from 'rxjs';
 
-
-const ELEMENT_DATA: Student[] = [];
 
 @Component({
   selector: 'app-students',
@@ -13,24 +13,30 @@ const ELEMENT_DATA: Student[] = [];
 })
 export class StudentsComponent {
 
-public students: Student[] = ELEMENT_DATA;
 
-constructor(private matDialog: MatDialog){}
+public students: Observable<Student[]>;
+
+constructor(private matDialog: MatDialog,
+            private studentService: StudentsService){
+
+  this.studentService.loadStudent();
+  this.students = this.studentService.getStudents();           
+
+            }
 
 onCreateStudent() : void
 {
   this.matDialog.open(StudentFormDialogComponent).afterClosed().subscribe({
     next:(result)=>{
       if ( result ){
-        this.students = [...this.students,
-          { id: this.students.length+1,
-            nombre: result['nombre'],
+        this.studentService.createStudent(
+          { nombre: result['nombre'],
             apellido: result['apellido'],
             email: result['email'],
             contrasenia: result['contrasenia'],
             telefono: result['telefono'],
             documento: result['documento'],
-        }];
+        });
       }
     }
 });
@@ -38,26 +44,23 @@ onCreateStudent() : void
 
 onDeleteStudent(studentToDelete: Student) : void
 {
-  if(confirm(`¿Está seguro que desea elimnar al estudiante ${studentToDelete.nombre} ${studentToDelete.apellido}?`))
+if(confirm(`¿Está seguro que desea eliminar al estudiante ${studentToDelete.nombre} ${studentToDelete.apellido}?`))
   {
-    this.students = this.students.filter((s) => s.id !== studentToDelete.id);
+    this.studentService.deleteStudentId(studentToDelete.id);
   }
 }
 
 onEditStudent(studentToEdit : Student) : void 
 {
-  this.matDialog.open(StudentFormDialogComponent , {
+ this.matDialog.open(StudentFormDialogComponent , {
     data: studentToEdit
   }).afterClosed().subscribe({
     next:(result)=>{
       if ( result ){
-        this.students = this.students.map((student)=>
-        { return student.id === studentToEdit.id ? {...student, ...result} : student; }
-        );
+        this.studentService.updateStudentById(studentToEdit.id, result);
       }
     }
 });
-
 }
 
 }

@@ -1,27 +1,21 @@
-export interface Student {
+export interface User {
     id: number;
     nombre: string;
     apellido: string;
     email: string;
     contrasenia: string;
-    telefono: string;
-    documento: number;
   }
 
-  export interface CreateStudentData {
+  export interface CreateUserData {
     nombre: string;
     apellido: string;
     email: string;
     contrasenia: string;
-    telefono: string;
-    documento: number;
   }
 
-  export interface UpdateStudentData {
+  export interface UpdateUserData {
     nombre?: string;
     apellido?: string;
     email?: string;
     contrasenia?: string;
-    telefono?: string;
-    documento?: number;
   }

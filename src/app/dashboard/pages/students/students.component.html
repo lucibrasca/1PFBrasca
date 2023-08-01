@@ -1,7 +1,14 @@
+<div class="p-3">
+<h1>Alumnos</h1>
 <div class="mb-4">
 <button mat-flat-button color="primary" type="button" (click)="onCreateStudent()">
   <mat-icon>add</mat-icon> 
   <span appCabecera="20px">Alta alumno</span>
 </button>
 </div>
-<app-student-table [dataSource]="students" (deleteStudent)="onDeleteStudent($event)" (editStudent)="onEditStudent($event)"></app-student-table>
+<app-student-table [dataSource]="(students | async) || []" 
+                  (deleteStudent)="onDeleteStudent($event)" 
+                  (editStudent)="onEditStudent($event)"
+                  >
+</app-student-table>
+</div>

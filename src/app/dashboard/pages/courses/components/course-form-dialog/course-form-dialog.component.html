@@ -1,0 +1,38 @@
+<p mat-dialog-title appCabecera="20px">{{ title }}</p>
+<div mat-dialog-content>
+<form [formGroup]="courseForm" class="grid">
+    <div class="col-12 field">
+        <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input [formControl]="nombreControl" matInput type="text" name="nombre">
+        <mat-error *ngFor="let error of nombreControl.errors | keyvalue">
+            {{ error | controlErrorMessage}}
+        </mat-error>
+    </mat-form-field>
+    </div>
+    <div class="col-6 field">
+        <mat-form-field class="w-full" appearance="outline"> 
+        <mat-label>Fecha Inicio</mat-label>
+        <input [formControl]="fechaInicioControl" matInput type="date" name="fechaInicio">
+        <mat-error *ngFor="let error of fechaInicioControl.errors | keyvalue">
+            {{ error | controlErrorMessage}}
+        </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="col-6 field">
+        <mat-form-field class="w-full" appearance="outline"> 
+        <mat-label>Fecha Fin</mat-label>
+        <input [formControl]="fechaFinControl" matInput type="date" name="fechaFin">
+        <mat-error *ngFor="let error of fechaFinControl.errors | keyvalue">
+            {{ error | controlErrorMessage}}
+        </mat-error>
+        </mat-form-field>
+    </div>
+   
+</form>
+</div>
+<div class="flex justify-content-end" mat-dialog-actions>
+    <button mat-flat-button mat-dialog-close color="primary">Cancelar</button>
+    <button (click)="onSubmit()" type="submit" mat-flat-button color="primary">Guardar</button>
+  </div>
+

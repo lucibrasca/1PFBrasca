@@ -6,6 +6,7 @@ import { StudentFormDialogComponent } from './components/student-form-dialog/stu
 import { StudentTableComponent } from './components/student-table/student-table.component';
 import { StudentDetailComponent } from './pages/student-detail/student-detail.component';
 import { RouterModule } from '@angular/router';
+import { StudentsRoutingModule } from './students-routing.module';
 
 
 
@@ -21,7 +22,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    StudentsRoutingModule
   ],
   exports: [
     StudentsComponent, 

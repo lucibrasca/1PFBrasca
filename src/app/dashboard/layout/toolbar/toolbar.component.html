@@ -1,8 +1,10 @@
-<mat-toolbar color="primary">
-    <button mat-icon-button (click)="drawer?.toggle()">
+<mat-toolbar class="flex justify-content-beetwen align-items-center" color="primary">
+   
+    <div><button mat-icon-button (click)="drawer?.toggle()">
         <mat-icon>menu</mat-icon>
     </button>
     <span appCabecera="20px">HomeSchool</span>
+</div>
     <div class="my-menu-logout"> 
         <button mat-icon-button [matMenuTriggerFor]="menu" >
             <mat-icon>more_vert</mat-icon>
@@ -16,10 +18,11 @@
                 <mat-icon>help_outline</mat-icon>
                     <span appCabecera="20px">Ayuda</span>
                 </button>
-            <button mat-menu-item>
+            <button (click)="logout()" mat-menu-item>
             <mat-icon>logout</mat-icon>
                 <span appCabecera="20px">Salir</span>
             </button>
         </mat-menu>
     </div>
+<p > {{ (authUser$ | async)?.nombre }}  {{ (authUser$ | async)?.apellido }}</p>
 </mat-toolbar>

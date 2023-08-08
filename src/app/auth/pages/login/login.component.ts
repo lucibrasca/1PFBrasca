@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../auth.service';
+
 
 @Component({
   selector: 'app-login',
@@ -6,5 +9,26 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  
+  public emailControl = new FormControl('', [Validators.required, Validators.email]);
+  public contraseniaControl = new FormControl('', [Validators.required]);
+
+  public loginForm = new FormGroup({
+    email: this.emailControl,
+    contrasenia: this.contraseniaControl,
+  });
+
+  constructor(private authService: AuthService) {}
+
+  login():void{
+
+    if(this.loginForm.invalid)
+    {
+      this.loginForm.markAllAsTouched();
+    }
+    else {
+      this.authService.login(this.loginForm.getRawValue())
+    }
+  }
 
 }

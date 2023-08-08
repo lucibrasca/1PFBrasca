@@ -1,70 +1,55 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 import { Course, CreateCourseData, UpdateCourseData } from './models';
+import { NotifierService } from 'src/app/core/services/notifier.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
 
-  private courses$ = new BehaviorSubject<Course[]>([]);
+  private _courses$ = new BehaviorSubject<Course[]>([]);
+  public courses$ = this._courses$.asObservable();
 
-  constructor() { }
+  constructor(private notifier: NotifierService, private httpClient: HttpClient) { }
 
   getCourses(): Observable<Course[]>
   {
-    return this.courses$.asObservable();
+    return this._courses$.asObservable();
   }
 
   loadCourses(): void 
   {
-    this.courses$.next([
-      {
-      id: 1, 
-      nombre:"Angular",
-      fechaInicio : new Date('2023-10-12'),
-      fechaFin: new Date('2023-10-25')
+    this.httpClient.get<Course[]>('http://localhost:3000/courses').subscribe({
+      next:(response)=>{ 
+        this._courses$.next(response);
       },
-      {
-        id: 2, 
-        nombre:"React",
-        fechaInicio : new Date('2023-11-20'),
-        fechaFin: new Date('2023-12-28')
-        },
-
-    ])
+    error: () => {
+      this.notifier.showError('Ocurrió un error al cargar los cursos');
+    }
+    })
   }
 
   createCourse(course: CreateCourseData): void
   {
-    this.courses$.pipe(take(1)).subscribe({
-      next:(arrayActual) => {
-        this.courses$.next([...arrayActual,
-          {...course, id: arrayActual.length+1}]
-        
-        );
-      }
+    this.httpClient.post<Course>('http://localhost:3000/courses',course).subscribe({
+      next: () =>{this.loadCourses() }
     });
-
   }
 
   updateCourseById(id: number, courseActualizado: UpdateCourseData): void
   {
-    this.courses$.pipe(take(1)).subscribe({
-      next:(arrayActual)=> {
-        this.courses$.next(
-          arrayActual.map((c) => c.id === id ? {...c, ...courseActualizado} : c)
-        );
-      }
+    this.httpClient.put('http://localhost:3000/courses/'+id, courseActualizado).subscribe({
+      next: ()=>{ this.loadCourses()}
     });
   }
 
   deleteCourseId(id:number): void
   {
-    this.courses$.pipe(take(1)).subscribe({
-      next: (arrayActual) => this.courses$.next(arrayActual.filter((c) => c.id !== id))
-    }
-    );
+    this.httpClient.delete('http://localhost:3000/courses/'+id).subscribe({
+      next: () => { this.loadCourses()}
+    });
   }
 
 

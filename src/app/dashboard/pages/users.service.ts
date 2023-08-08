@@ -1,79 +1,56 @@
 import { Injectable } from '@angular/core';
 import { CreateUserData, UpdateUserData, User } from './users/models';
 import { BehaviorSubject, Observable, take } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { NotifierService } from 'src/app/core/services/notifier.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
-  private users$ = new BehaviorSubject<User[]>([]);
+  private _users$ = new BehaviorSubject<User[]>([]);
 
-  constructor() { }
+
+  constructor(private notifier: NotifierService, private httpClient: HttpClient) { }
 
   getUsers(): Observable<User[]>
   {
-    return this.users$.asObservable();
+    return this._users$.asObservable();
   }
 
   loadUsers(): void 
   {
-    this.users$.next([
-      {
-        id: 1,
-        nombre: 'Clara',
-        apellido: 'Robledo',
-        email: 'crobledo@gmail.com',
-        contrasenia: '12345678',
+    this.httpClient.get<User[]>('http://localhost:3000/users').subscribe({
+      next:(response)=>{ 
+        this._users$.next(response);
       },
-      {
-        id: 2,
-        nombre: 'Matias',
-        apellido: 'Carrizo',
-        email: 'mcarrizo@gmail.com',
-        contrasenia: '87654321',
-      },
-      {
-        id: 3,
-        nombre: 'Sergio',
-        apellido: 'Trotta',
-        email: 'strotta@hotmail.com',
-        contrasenia: '67805432',
-      },
-
-    ])
+    error: () => {
+      this.notifier.showError('Ocurrió un error al cargar los usuarios');
+    }
+    })
   }
 
   createUser(user: CreateUserData): void
   {
-    this.users$.pipe(take(1)).subscribe({
-      next:(arrayActual) => {
-        this.users$.next([...arrayActual,
-          {...user, id: arrayActual.length+1}]
-        
-        );
-      }
-    });
+    this.httpClient.post<User>('http://localhost:3000/users',user).subscribe({
+      next: () =>{this.loadUsers() }
+    })
 
   }
 
   updateUserById(id: number, userActualizado: UpdateUserData): void
   {
-    this.users$.pipe(take(1)).subscribe({
-      next:(arrayActual)=> {
-        this.users$.next(
-          arrayActual.map((u) => u.id === id ? {...u, ...userActualizado} : u)
-        );
-      }
+    this.httpClient.put('http://localhost:3000/users/'+id, userActualizado).subscribe({
+      next: ()=>{ this.loadUsers()}
     });
   }
 
   deleteUserId(id:number): void
   {
-    this.users$.pipe(take(1)).subscribe({
-      next: (arrayActual) => this.users$.next(arrayActual.filter((u) => u.id !== id))
-    }
-    );
+    this.httpClient.delete('http://localhost:3000/users/'+id).subscribe({
+      next: () => { this.loadUsers()}
+    });
   }
 
 

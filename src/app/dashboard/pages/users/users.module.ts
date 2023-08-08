@@ -4,6 +4,7 @@ import { UsersComponent } from './users.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UserFormDialogComponent } from './components/user-form-dialog/user-form-dialog.component';
+import { UsersRoutingModule } from './users-routing.module';
 
 
 
@@ -15,7 +16,8 @@ import { UserFormDialogComponent } from './components/user-form-dialog/user-form
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    UsersRoutingModule
   ]
 })
 export class UsersModule { }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { UsersService } from '../users.service';
 import { UserFormDialogComponent } from './components/user-form-dialog/user-form-dialog.component';
+import { NotifierService } from 'src/app/core/services/notifier.service';
 
 @Component({
   selector: 'app-users',
@@ -18,7 +19,7 @@ export class UsersComponent  implements OnInit{
 
   public displayedColumns = ['id','nombre','email','acciones'];
 
-  constructor(private matDialog: MatDialog, private userService: UsersService)
+  constructor(private matDialog: MatDialog, private userService: UsersService, private notifier: NotifierService)
   {
     this.data$ = this.userService.getUsers();
   }
@@ -42,6 +43,7 @@ export class UsersComponent  implements OnInit{
               email: result['email'],
               contrasenia: result['contrasenia'],
           });
+          this.notifier.showSuccess('Usuario dado de alta');
         }
       }
   });
@@ -53,6 +55,7 @@ export class UsersComponent  implements OnInit{
   if(confirm(`¿Está seguro que desea eliminar el usuario ${userToDelete.nombre}?`))
     {
       this.userService.deleteUserId(userToDelete.id);
+      this.notifier.showSuccess('Usuario dado de baja');
     }
   }
 
@@ -64,6 +67,7 @@ export class UsersComponent  implements OnInit{
       next:(result)=>{
         if ( result ){
           this.userService.updateUserById(userToEdit.id, result);
+          this.notifier.showSuccess('Usuario modificado');
         }
       }
   });

@@ -1,0 +1,68 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "nombre": "Isabella",
+      "apellido": "Almada",
+      "email": "ialmada@gmail.com",
+      "contrasenia": "87654321",
+      "telefono": "0342-15680964",
+      "documento": 25890752
+    },
+    {
+      "id": 2,
+      "nombre": "Walter",
+      "apellido": "Milessi",
+      "email": "wmilessi@hotmail.com",
+      "contrasenia": "67805432",
+      "telefono": "0342-154443327",
+      "documento": 34896543
+    },
+    {
+      "nombre": "Lucila",
+      "apellido": "Brasca",
+      "email": "lbrasca@gmail.com",
+      "contrasenia": "568jjjooo",
+      "telefono": "1237498798",
+      "documento": 597595975,
+      "id": 3
+    }
+  ],
+  "courses": [
+    {
+      "nombre": "Angular",
+      "fechaInicio": "2023-09-12",
+      "fechaFin": "2023-10-25",
+      "id": 1
+    },
+    {
+      "nombre": "PHP",
+      "fechaInicio": "2024-04-12",
+      "fechaFin": "2024-05-18",
+      "id": 2
+    }
+  ],
+  "users": [
+    {
+      "nombre": "Clara",
+      "apellido": "Robledo",
+      "email": "crobledo@gmail.com",
+      "contrasenia": "12345678",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "nombre": "Matias",
+      "apellido": "Carrizo",
+      "email": "mcarrizo@gmail.com",
+      "contrasenia": "87654321"
+    },
+    {
+      "id": 3,
+      "nombre": "Sergio",
+      "apellido": "Trotta",
+      "email": "strotta@hotmail.com",
+      "contrasenia": "67805432"
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import { CourseService } from './course.service';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CourseFormDialogComponent } from './components/course-form-dialog/course-form-dialog.component';
+import { NotifierService } from 'src/app/core/services/notifier.service';
 
 @Component({
   selector: 'app-courses',
@@ -21,7 +22,7 @@ export class CoursesComponent implements OnInit{
 
   public displayedColumns = ['id','nombre','fechaInicio','fechaFin','acciones'];
 
-  constructor(private matDialog: MatDialog, private courseService: CourseService)
+  constructor(private matDialog: MatDialog, private courseService: CourseService, private notifier: NotifierService)
   {
     this.data$ = this.courseService.getCourses();
   }
@@ -44,6 +45,7 @@ export class CoursesComponent implements OnInit{
               fechaInicio: result['fechaInicio'],
               fechaFin: result['fechaFin'],
           });
+          this.notifier.showSuccess('Curso dado de alta');
         }
       }
   });
@@ -55,6 +57,7 @@ export class CoursesComponent implements OnInit{
   if(confirm(`¿Está seguro que desea eliminar el curso ${courseToDelete.nombre}?`))
     {
       this.courseService.deleteCourseId(courseToDelete.id);
+      this.notifier.showSuccess('Curso dado de baja');
     }
   }
  
@@ -66,6 +69,7 @@ export class CoursesComponent implements OnInit{
       next:(result)=>{
         if ( result ){
           this.courseService.updateCourseById(courseToEdit.id, result);
+          this.notifier.showSuccess("Datos actualizados");
         }
       }
   });

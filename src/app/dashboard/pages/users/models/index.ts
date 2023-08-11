@@ -4,6 +4,7 @@ export interface User {
     apellido: string;
     email: string;
     contrasenia: string;
+    token: string;
   }
 
   export interface CreateUserData {
@@ -11,6 +12,7 @@ export interface User {
     apellido: string;
     email: string;
     contrasenia: string;
+   
   }
 
   export interface UpdateUserData {
@@ -18,4 +20,5 @@ export interface User {
     apellido?: string;
     email?: string;
     contrasenia?: string;
+
   }

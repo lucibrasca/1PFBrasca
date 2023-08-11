@@ -48,21 +48,24 @@
       "apellido": "Robledo",
       "email": "crobledo@gmail.com",
       "contrasenia": "12345678",
-      "id": 1
-    },
+      "id": 1,
+      "token": "gfhgfkh65787987"
+       },
     {
       "id": 2,
       "nombre": "Matias",
       "apellido": "Carrizo",
       "email": "mcarrizo@gmail.com",
-      "contrasenia": "87654321"
+      "contrasenia": "87654321",
+      "token": "kyfljglg657hh88"
     },
     {
       "id": 3,
       "nombre": "Sergio",
       "apellido": "Trotta",
       "email": "strotta@hotmail.com",
-      "contrasenia": "67805432"
+      "contrasenia": "67805432",
+      "token": "7980gfhgfkhdkyf"
     }
   ]
 }

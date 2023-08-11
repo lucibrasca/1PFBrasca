@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CreateUserData, UpdateUserData, User } from './users/models';
+import { CreateUserData, UpdateUserData, User } from './models';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NotifierService } from 'src/app/core/services/notifier.service';
+import { environment } from 'src/environments/environment';
+import { generateRandomString } from 'src/app/shared/utils/helpers';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,7 @@ export class UsersService {
 
   loadUsers(): void 
   {
-    this.httpClient.get<User[]>('http://localhost:3000/users').subscribe({
+    this.httpClient.get<User[]>(environment.baseApiUrl + '/users').subscribe({
       next:(response)=>{ 
         this._users$.next(response);
       },
@@ -33,7 +35,9 @@ export class UsersService {
 
   createUser(user: CreateUserData): void
   {
-    this.httpClient.post<User>('http://localhost:3000/users',user).subscribe({
+    const token = generateRandomString(15);
+
+    this.httpClient.post<User>(environment.baseApiUrl + '/users',{...user, token}).subscribe({
       next: () =>{this.loadUsers() }
     })
 
@@ -41,14 +45,14 @@ export class UsersService {
 
   updateUserById(id: number, userActualizado: UpdateUserData): void
   {
-    this.httpClient.put('http://localhost:3000/users/'+id, userActualizado).subscribe({
+    this.httpClient.put(environment.baseApiUrl + '/users/'+id, userActualizado).subscribe({
       next: ()=>{ this.loadUsers()}
     });
   }
 
   deleteUserId(id:number): void
   {
-    this.httpClient.delete('http://localhost:3000/users/'+id).subscribe({
+    this.httpClient.delete(environment.baseApiUrl + '/users/'+id).subscribe({
       next: () => { this.loadUsers()}
     });
   }

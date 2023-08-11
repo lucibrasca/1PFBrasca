@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CreateStudentData, Student, UpdateStudentData } from './models';
-import { BehaviorSubject, Observable, Subject, delay, map, mergeMap, of, take } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, map, take } from 'rxjs';
 import { NotifierService } from 'src/app/core/services/notifier.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ private students$ = this._students$.asObservable();
 
   loadStudent()
   {
-    this.httpClient.get<Student[]>('http://localhost:3000/students').subscribe({
+    this.httpClient.get<Student[]>(environment.baseApiUrl + '/students').subscribe({
       next:(response)=>{ 
         this._students$.next(response);
       },
@@ -46,7 +47,7 @@ private students$ = this._students$.asObservable();
   createStudent(student: CreateStudentData): void
   {
   
-   this.httpClient.post<Student>('http://localhost:3000/students',student).subscribe({
+   this.httpClient.post<Student>(environment.baseApiUrl + '/students',student).subscribe({
     next: () =>{this.loadStudent() }
   })
   }
@@ -54,14 +55,14 @@ private students$ = this._students$.asObservable();
 
   updateStudentById(id: number, studentActualizado: UpdateStudentData): void
   {
-      this.httpClient.put('http://localhost:3000/students/'+id, studentActualizado).subscribe({
+      this.httpClient.put(environment.baseApiUrl + '/students/'+id, studentActualizado).subscribe({
         next: ()=>{ this.loadStudent()}
       });
   }
 
   deleteStudentId(id:number): void
   {
-    this.httpClient.delete('http://localhost:3000/students/'+id).subscribe({
+    this.httpClient.delete(environment.baseApiUrl + '/students/'+id).subscribe({
       next: () => { this.loadStudent()}
     });
   }

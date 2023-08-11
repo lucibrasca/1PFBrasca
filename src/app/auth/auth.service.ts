@@ -5,6 +5,7 @@ import { User } from '../dashboard/pages/users/models';
 import { NotifierService } from '../core/services/notifier.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ public authUser$ = this._authUser$.asObservable();
 
   login(data: LoginData):void{
    
-    this.httpClient.get<User[]>('http://localhost:3000/users', {
+    this.httpClient.get<User[]>(environment.baseApiUrl + '/users', {
       params:{
         email: data.email || '',
         contrasenia:  data.contrasenia || ''
@@ -28,8 +29,9 @@ public authUser$ = this._authUser$.asObservable();
       next:(users)=>{
         if (users.length)
         {
-         this._authUser$.next(users[0]);
+          this._authUser$.next(users[0]);
           this.router.navigate(['/dashboard']);
+          localStorage.setItem('token', users[0].token);
         }
         else{
           this._authUser$.next(null);
@@ -42,7 +44,16 @@ public authUser$ = this._authUser$.asObservable();
 }
 
 isAuthenticated(): Observable<boolean> {
- return this.authUser$.pipe(take(1),map((u) => u ? true : false));
+
+return this.httpClient.get<User[]>(environment.baseApiUrl + '/users', {
+  params: {
+    token: localStorage['token'] ? localStorage['token']:''
+  }
+}).pipe(
+  map((users) => {
+    return (users.length) ? true : false; 
+  })
+)
 }
 
 

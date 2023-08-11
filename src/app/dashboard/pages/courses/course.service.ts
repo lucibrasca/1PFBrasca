@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, take } from 'rxjs';
 import { Course, CreateCourseData, UpdateCourseData } from './models';
 import { NotifierService } from 'src/app/core/services/notifier.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -33,21 +34,21 @@ export class CourseService {
 
   createCourse(course: CreateCourseData): void
   {
-    this.httpClient.post<Course>('http://localhost:3000/courses',course).subscribe({
+    this.httpClient.post<Course>(environment.baseApiUrl + '/courses',course).subscribe({
       next: () =>{this.loadCourses() }
     });
   }
 
   updateCourseById(id: number, courseActualizado: UpdateCourseData): void
   {
-    this.httpClient.put('http://localhost:3000/courses/'+id, courseActualizado).subscribe({
+    this.httpClient.put(environment.baseApiUrl + '/courses/'+id, courseActualizado).subscribe({
       next: ()=>{ this.loadCourses()}
     });
   }
 
   deleteCourseId(id:number): void
   {
-    this.httpClient.delete('http://localhost:3000/courses/'+id).subscribe({
+    this.httpClient.delete(environment.baseApiUrl + '/courses/'+id).subscribe({
       next: () => { this.loadCourses()}
     });
   }

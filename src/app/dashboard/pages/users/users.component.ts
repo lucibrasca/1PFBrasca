@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from './models';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { UsersService } from '../users.service';
+import { UsersService } from './users.service';
 import { UserFormDialogComponent } from './components/user-form-dialog/user-form-dialog.component';
 import { NotifierService } from 'src/app/core/services/notifier.service';
 

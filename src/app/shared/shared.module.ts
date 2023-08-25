@@ -6,7 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatDialogModule } from '@angular/material/dialog'; 
 import { MatTableModule } from '@angular/material/table';
-import { MatCardModule } from '@angular/material/card'; 
+import { MatCardModule } from '@angular/material/card';
+import {MatSelectModule} from '@angular/material/select'; 
 import { FullNamePipe } from './pipes/full-name.pipe';
 import { ControlErrorMessagePipe } from './pipes/control-error-message.pipe';
 import { CabeceraDirective } from './directives/cabecera.directive'; 
@@ -35,6 +36,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FullNamePipe,
     ControlErrorMessagePipe,
     CabeceraDirective,
-  ],
+    MatSelectModule
+    ],
 })
 export class SharedModule { }

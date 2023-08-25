@@ -1,0 +1,20 @@
+<h2>Curso: {{ cursoNombre$ | async }}</h2>
+<h3>Fecha:  {{ fechaInicio$ | async | date: 'shortDate'}} - {{ fechaFin$ | async | date: 'shortDate'}}</h3>
+<h3>Profesor: {{ profesor$ | async }} </h3>
+<h3>Alumnos</h3>
+<table mat-table [dataSource]="students">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let student"> {{student.id}} </td>
+  </ng-container>
+
+  
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+    <td mat-cell *matCellDef="let student"> {{student | fullName }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

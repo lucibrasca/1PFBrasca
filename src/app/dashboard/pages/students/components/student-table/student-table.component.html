@@ -21,10 +21,10 @@
         <button mat-icon-button [routerLink]="student.id" >
           <mat-icon> visibility </mat-icon>
         </button>
-        <button mat-icon-button (click)="editStudent.emit(student)">
+        <button  [disabled]="!(isAdmin$ | async)" mat-icon-button (click)="editStudent.emit(student)">
           <mat-icon> edit </mat-icon>
         </button>
-        <button mat-icon-button (click)="deleteStudent.emit(student)">
+        <button  [disabled]="!(isAdmin$ | async)" mat-icon-button (click)="deleteStudent.emit(student)">
           <mat-icon> delete </mat-icon>
         </button>
       </td>

@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, Subject, map, take } from 'rxjs';
 import { NotifierService } from 'src/app/core/services/notifier.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Registration } from '../registrations/models';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import { environment } from 'src/environments/environment';
 export class StudentsService {
 
 private _students$ = new BehaviorSubject<Student[]>([]);
-private students$ = this._students$.asObservable();
+public students$ = this._students$.asObservable();
   
 
   constructor(private notifier: NotifierService, private httpClient: HttpClient) { }
@@ -65,6 +66,10 @@ private students$ = this._students$.asObservable();
     this.httpClient.delete(environment.baseApiUrl + '/students/'+id).subscribe({
       next: () => { this.loadStudent()}
     });
+  }
+
+  getStudentByCourseId(courseId: number): Observable<Student[]> {
+    return this.httpClient.get<Student[]>(environment.baseApiUrl + `/registration?courseId=${courseId}`)
   }
 
 

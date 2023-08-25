@@ -42,6 +42,7 @@ export class UsersComponent  implements OnInit{
               apellido: result['apellido'],
               email: result['email'],
               contrasenia: result['contrasenia'],
+              rol: result['rol']
           });
           this.notifier.showSuccess('Usuario dado de alta');
         }

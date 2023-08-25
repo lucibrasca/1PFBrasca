@@ -5,6 +5,7 @@ export interface User {
     email: string;
     contrasenia: string;
     token: string;
+    rol: "ADMINISTRADOR" | "USUARIO";
   }
 
   export interface CreateUserData {
@@ -12,7 +13,7 @@ export interface User {
     apellido: string;
     email: string;
     contrasenia: string;
-   
+    rol: "ADMINISTRADOR" | "USUARIO";
   }
 
   export interface UpdateUserData {
@@ -20,5 +21,6 @@ export interface User {
     apellido?: string;
     email?: string;
     contrasenia?: string;
+    rol?: "ADMINISTRADOR" | "USUARIO";
 
   }

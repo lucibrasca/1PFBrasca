@@ -40,6 +40,28 @@
       "fechaInicio": "2024-04-12",
       "fechaFin": "2024-05-18",
       "id": 2
+    },
+    {
+      "nombre": "Angular",
+      "fechaInicio": "2023-08-31",
+      "fechaFin": "2023-10-18",
+      "id": 3
+    }
+  ],
+  "teachers": [
+    {
+      "id": 1,
+      "nombre": "Pedro",
+      "apellido": "Albertario",
+      "email": "palbert@hotmail.com",
+      "courseId": 1
+    },
+    {
+      "nombre": "Maximiliano",
+      "apellido": "Perez",
+      "email": "mperez@gmail.com",
+      "courseId": 3,
+      "id": 2
     }
   ],
   "users": [
@@ -48,16 +70,18 @@
       "apellido": "Robledo",
       "email": "crobledo@gmail.com",
       "contrasenia": "12345678",
-      "id": 1,
-      "token": "gfhgfkh65787987"
-       },
+      "rol": "ADMINISTRADOR",
+      "token": "7688979hdkyf345",
+      "id": 1
+    },
     {
-      "id": 2,
       "nombre": "Matias",
       "apellido": "Carrizo",
       "email": "mcarrizo@gmail.com",
       "contrasenia": "87654321",
-      "token": "kyfljglg657hh88"
+      "rol": "ADMINISTRADOR",
+      "token": "e579o9htdswrkif",
+      "id": 2
     },
     {
       "id": 3,
@@ -65,7 +89,34 @@
       "apellido": "Trotta",
       "email": "strotta@hotmail.com",
       "contrasenia": "67805432",
-      "token": "7980gfhgfkhdkyf"
+      "token": "7980gfhgfkhdkyf",
+      "rol": "USUARIO"
+    },
+    {
+      "nombre": "Guadalupe",
+      "apellido": "Barzaghi",
+      "email": "gbarza@gmail.com",
+      "contrasenia": "guadalupe",
+      "rol": "USUARIO",
+      "token": "dsvf4sZTfovRx8u",
+      "id": 4
+    }
+  ],
+  "registration": [
+    {
+      "id": 1,
+      "studentId": 1,
+      "courseId": 1
+    },
+    {
+      "studentId": 2,
+      "courseId": 1,
+      "id": 5
+    },
+    {
+      "studentId": 1,
+      "courseId": 1,
+      "id": 6
     }
   ]
 }

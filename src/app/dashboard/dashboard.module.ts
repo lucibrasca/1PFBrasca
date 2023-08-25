@@ -6,7 +6,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu'; 
 import { SharedModule } from '../shared/shared.module';
 import { StudentsModule } from './pages/students/students.module';
-import { CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
 import { RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { NavMenuComponent } from './layout/nav-menu/nav-menu.component';
@@ -17,6 +16,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MatButtonModule } from '@angular/material/button';
 
 import { HomeModule } from './pages/home/home.module';
+import { TeachersModule } from './pages/teachers/teachers.module';
 
 
 
@@ -39,7 +39,8 @@ import { HomeModule } from './pages/home/home.module';
     StudentsModule,
     CoursesModule,
     UsersModule,
-    MatListModule
+    MatListModule,
+    TeachersModule
   ],
   exports:[
     DashboardComponent

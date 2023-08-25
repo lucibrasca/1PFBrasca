@@ -14,6 +14,8 @@ export class UserFormDialogComponent {
   apellidoControl  = new FormControl<string|null>(null, [Validators.required, Validators.minLength(2)]);
   emailControl = new FormControl<string|null>(null, [Validators.required, Validators.email]);
   contraseniaControl = new FormControl<string|null>(null, [Validators.required, Validators.minLength(8)]);
+  rolControl = new FormControl<string|null>(null, [Validators.required]);
+  tokenControl = new FormControl<string|null>(null);
   
   title : string='';
   
@@ -23,6 +25,8 @@ export class UserFormDialogComponent {
     apellido : this.apellidoControl,
     email : this.emailControl,
     contrasenia :this.contraseniaControl,
+    rol : this.rolControl,
+    token : this.tokenControl
   
   });
 
@@ -36,6 +40,8 @@ export class UserFormDialogComponent {
       this.apellidoControl.setValue(this.data.apellido);
       this.emailControl.setValue(this.data.email);
       this.contraseniaControl.setValue(this.data.contrasenia);
+      this.rolControl.setValue(this.data.rol);
+      this.tokenControl.setValue(this.data.token);
   
     }
     else

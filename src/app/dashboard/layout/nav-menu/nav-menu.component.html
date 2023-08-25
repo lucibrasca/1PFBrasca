@@ -1,8 +1,10 @@
 <mat-nav-list>
     <a mat-list-item routerLink="home" >Inicio</a>
     <a mat-list-item routerLink="students" >Alumnos</a>
+    <a mat-list-item routerLink="teachers" >Profesores</a>
     <a mat-list-item routerLink="courses">Cursos</a>
-    <a mat-list-item routerLink="users">Usuarios</a>
+    <a mat-list-item routerLink="registrations" >Inscripciones</a>
+    <a *ngIf="rol$ | async" mat-list-item routerLink="users">Usuarios</a>
     <a mat-list-item (click)="logout()">Cerrar Sesión</a>
 </mat-nav-list>
 

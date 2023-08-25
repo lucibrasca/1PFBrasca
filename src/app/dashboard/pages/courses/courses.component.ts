@@ -5,6 +5,10 @@ import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CourseFormDialogComponent } from './components/course-form-dialog/course-form-dialog.component';
 import { NotifierService } from 'src/app/core/services/notifier.service';
+import { Store } from '@ngrx/store';
+import { selectIsAdmin } from 'src/app/store/auth/auth.selectors';
+import { CourseActions } from './store/course.actions';
+import { selectCourseArray } from './store/course.selectors';
 
 @Component({
   selector: 'app-courses',
@@ -17,21 +21,23 @@ import { NotifierService } from 'src/app/core/services/notifier.service';
 export class CoursesComponent implements OnInit{
 
   public data$: Observable<Course[]>; 
+ 
 
   public dataSource: Course[] = [];
 
+  public isAdmin$: Observable<boolean>;
+
   public displayedColumns = ['id','nombre','fechaInicio','fechaFin','acciones'];
 
-  constructor(private matDialog: MatDialog, private courseService: CourseService, private notifier: NotifierService)
+  constructor(private matDialog: MatDialog, private courseService: CourseService, private notifier: NotifierService, private store: Store)
   {
-    this.data$ = this.courseService.getCourses();
+    this.data$ = this.store.select(selectCourseArray);
+    this.isAdmin$ = this.store.select(selectIsAdmin);
   }
 
 
   ngOnInit(): void {
-
-    this.courseService.loadCourses();
-
+    this.store.dispatch(CourseActions.loadCourses());
   }
 
 

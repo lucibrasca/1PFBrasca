@@ -4,8 +4,9 @@ import {  catchError, concatMap, map } from 'rxjs/operators';
 import { Observable, EMPTY, of } from 'rxjs';
 import { CourseActions } from './course.actions';
 import { HttpClient } from '@angular/common/http';
-import { Course } from '../models';
+import { CourseWithTeacher } from '../models';
 import { environment } from 'src/environments/environment';
+import { Teacher } from '../../teachers/models';
 
 
 @Injectable()
@@ -24,10 +25,28 @@ export class CourseEffects {
     );
   });
 
+  loadTeacherOptions$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(CourseActions.loadTeacherOptions),
+      concatMap(() =>
+      
+        this.getTeacherOptions().pipe(
+          map(data => CourseActions.loadTeacherOptionsSuccess({ data })),
+          catchError(error => of(CourseActions.loadTeacherOptionsFailure({ error }))))
+      )
+    );
+  });
+
   constructor(private actions$: Actions,  private httpClient: HttpClient) {}
 
-  private getCourseFromDB(): Observable<Course[]>
+  private getCourseFromDB(): Observable<CourseWithTeacher[]>
 {
-  return this.httpClient.get<Course[]>(environment.baseApiUrl+'/courses');
+  return this.httpClient.get<CourseWithTeacher[]>(environment.baseApiUrl+'/courses?_expand=teacher');
+}
+
+private getTeacherOptions() : Observable<Teacher[]>
+{
+  return this.httpClient.get<Teacher[]>(environment.baseApiUrl+'/teachers');
 }
 }

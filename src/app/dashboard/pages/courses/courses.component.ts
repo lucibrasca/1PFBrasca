@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { Course } from './models';
+import { Course, CourseWithTeacher } from './models';
 import { CourseService } from './course.service';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,7 +8,7 @@ import { NotifierService } from 'src/app/core/services/notifier.service';
 import { Store } from '@ngrx/store';
 import { selectIsAdmin } from 'src/app/store/auth/auth.selectors';
 import { CourseActions } from './store/course.actions';
-import { selectCourseArray } from './store/course.selectors';
+import { selectCourse } from './store/course.selectors';
 
 @Component({
   selector: 'app-courses',
@@ -20,18 +20,18 @@ import { selectCourseArray } from './store/course.selectors';
 
 export class CoursesComponent implements OnInit{
 
-  public data$: Observable<Course[]>; 
+  public data$: Observable<CourseWithTeacher[]>; 
  
 
-  public dataSource: Course[] = [];
+  //public dataSource: Course[] = [];
 
   public isAdmin$: Observable<boolean>;
 
-  public displayedColumns = ['id','nombre','fechaInicio','fechaFin','acciones'];
+  public displayedColumns = ['id','nombre','fechaInicio','fechaFin','profesor','acciones'];
 
   constructor(private matDialog: MatDialog, private courseService: CourseService, private notifier: NotifierService, private store: Store)
   {
-    this.data$ = this.store.select(selectCourseArray);
+    this.data$ = this.store.select(selectCourse);
     this.isAdmin$ = this.store.select(selectIsAdmin);
   }
 
@@ -50,11 +50,13 @@ export class CoursesComponent implements OnInit{
             { nombre: result['nombre'],
               fechaInicio: result['fechaInicio'],
               fechaFin: result['fechaFin'],
+              teacherId: result['teacherId']
           });
-          this.notifier.showSuccess('Curso dado de alta');
+          this.notifier.showSuccess('Curso guardado');
         }
       }
   });
+  
   }
 
 
@@ -63,19 +65,19 @@ export class CoursesComponent implements OnInit{
   if(confirm(`¿Está seguro que desea eliminar el curso ${courseToDelete.nombre}?`))
     {
       this.courseService.deleteCourseId(courseToDelete.id);
-      this.notifier.showSuccess('Curso dado de baja');
+      this.notifier.showSuccess('Curso eliminado');
     }
   }
- 
+
   onEditCourse(courseToEdit : Course) : void 
   {
-   this.matDialog.open(CourseFormDialogComponent , {
+  this.matDialog.open(CourseFormDialogComponent , {
       data: courseToEdit
     }).afterClosed().subscribe({
       next:(result)=>{
         if ( result ){
           this.courseService.updateCourseById(courseToEdit.id, result);
-          this.notifier.showSuccess("Datos actualizados");
+          this.notifier.showSuccess("Curso actualizado");
         }
       }
   });

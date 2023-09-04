@@ -69,7 +69,8 @@ public students$ = this._students$.asObservable();
   }
 
   getStudentByCourseId(courseId: number): Observable<Student[]> {
-    return this.httpClient.get<Student[]>(environment.baseApiUrl + `/registration?courseId=${courseId}`)
+   return this.httpClient.get<Student[]>(environment.baseApiUrl + `/registration?courseId=${courseId}&_expand=student`)
+    
   }
 
 

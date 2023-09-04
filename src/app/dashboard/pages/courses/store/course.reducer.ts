@@ -1,17 +1,20 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { CourseActions } from './course.actions';
-import { Course } from '../models';
+import { CourseWithTeacher } from '../models';
+import { Teacher } from '../../teachers/models';
 
 export const courseFeatureKey = 'course';
 
 export interface State {
-  courses: Course[],
-  courseDetail: Course | null,
+  courses: CourseWithTeacher[],
+  teacherOptions : Teacher[],
+  courseDetail: CourseWithTeacher | null,
   loading: boolean
 }
 
 export const initialState: State = {
   courses: [],
+  teacherOptions : [],
   courseDetail: null,
   loading: false
 };
@@ -38,6 +41,23 @@ export const reducer = createReducer(
       loading : false
     }
   }),
+
+  on(CourseActions.loadTeacherOptions, (state) => state),
+
+  on(CourseActions.loadTeacherOptionsSuccess, (state, action) => {
+    return {
+      ...state,
+      teacherOptions : action.data
+    };
+  }),
+
+  on(CourseActions.loadTeacherOptionsFailure, (state, action) => {
+    return {
+      ...state,
+      error : action.error
+    }
+  }),
+
 
   on(CourseActions.loadCoursesDetail, (state, action) => {
     return {

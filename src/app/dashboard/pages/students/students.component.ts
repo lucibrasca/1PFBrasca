@@ -44,7 +44,7 @@ onCreateStudent() : void
             telefono: result['telefono'],
             documento: result['documento'],
         });
-        this.notifier.showSuccess('Alumno dado de alta.')
+        this.notifier.showSuccess('Alumno guardado')
       }
     }
 });
@@ -55,7 +55,7 @@ onDeleteStudent(studentToDelete: Student) : void
 if(confirm(`¿Está seguro que desea eliminar al estudiante ${studentToDelete.nombre} ${studentToDelete.apellido}?`))
   {
     this.studentService.deleteStudentId(studentToDelete.id);
-    this.notifier.showSuccess('Alumno dado de baja.')
+    this.notifier.showSuccess('Alumno eliminado')
   }
 }
 
@@ -67,7 +67,7 @@ onEditStudent(studentToEdit : Student) : void
     next:(result)=>{
       if ( result ){
         this.studentService.updateStudentById(studentToEdit.id, result);
-        this.notifier.showSuccess('Alumno modificado.')
+        this.notifier.showSuccess('Alumno actualizado')
       }
     }
 });

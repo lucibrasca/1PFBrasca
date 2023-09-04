@@ -1,13 +1,13 @@
 {
   "students": [
     {
-      "id": 1,
       "nombre": "Isabella",
       "apellido": "Almada",
       "email": "ialmada@gmail.com",
       "contrasenia": "87654321",
       "telefono": "0342-15680964",
-      "documento": 25890752
+      "documento": 25890752,
+      "id": 1
     },
     {
       "id": 2,
@@ -19,49 +19,56 @@
       "documento": 34896543
     },
     {
-      "nombre": "Lucila",
-      "apellido": "Brasca",
-      "email": "lbrasca@gmail.com",
-      "contrasenia": "568jjjooo",
-      "telefono": "1237498798",
-      "documento": 597595975,
+      "nombre": "Lionel",
+      "apellido": "Messi",
+      "email": "lmessi@miservidorw.com",
+      "contrasenia": "567890543hhjk",
+      "telefono": "0342-156987433",
+      "documento": 28689436,
       "id": 3
     }
   ],
   "courses": [
     {
-      "nombre": "Angular",
+      "nombre": "Javascript",
       "fechaInicio": "2023-09-12",
       "fechaFin": "2023-10-25",
+      "teacherId": 2,
       "id": 1
-    },
-    {
-      "nombre": "PHP",
-      "fechaInicio": "2024-04-12",
-      "fechaFin": "2024-05-18",
-      "id": 2
     },
     {
       "nombre": "Angular",
       "fechaInicio": "2023-08-31",
       "fechaFin": "2023-10-18",
-      "id": 3
+      "id": 3,
+      "teacherId": 2
+    },
+    {
+      "nombre": "Php",
+      "fechaInicio": "2023-04-13",
+      "fechaFin": "2023-06-27",
+      "teacherId": 4,
+      "id": 4
     }
   ],
   "teachers": [
     {
-      "id": 1,
-      "nombre": "Pedro",
-      "apellido": "Albertario",
-      "email": "palbert@hotmail.com",
-      "courseId": 1
+      "nombre": "Maximiliano",
+      "apellido": "Medina",
+      "email": "mmedina@gmail.com",
+      "id": 2
     },
     {
-      "nombre": "Maximiliano",
+      "nombre": "Benicio",
       "apellido": "Perez",
-      "email": "mperez@gmail.com",
-      "courseId": 3,
-      "id": 2
+      "email": "bperez@gmail.com",
+      "id": 3
+    },
+    {
+      "nombre": "Fernanda",
+      "apellido": "Moreno",
+      "email": "fmore@hotmail.com",
+      "id": 4
     }
   ],
   "users": [
@@ -91,15 +98,6 @@
       "contrasenia": "67805432",
       "token": "7980gfhgfkhdkyf",
       "rol": "USUARIO"
-    },
-    {
-      "nombre": "Guadalupe",
-      "apellido": "Barzaghi",
-      "email": "gbarza@gmail.com",
-      "contrasenia": "guadalupe",
-      "rol": "USUARIO",
-      "token": "dsvf4sZTfovRx8u",
-      "id": 4
     }
   ],
   "registration": [
@@ -114,9 +112,19 @@
       "id": 5
     },
     {
-      "studentId": 1,
-      "courseId": 1,
+      "studentId": 3,
+      "courseId": 4,
       "id": 6
+    },
+    {
+      "studentId": 1,
+      "courseId": 3,
+      "id": 7
+    },
+    {
+      "studentId": 2,
+      "courseId": 4,
+      "id": 8
     }
   ]
 }

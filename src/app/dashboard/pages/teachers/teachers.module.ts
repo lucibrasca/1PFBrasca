@@ -8,13 +8,15 @@ import { TeachersEffects } from './store/teachers.effects';
 import { StoreModule } from '@ngrx/store';
 import { teachersFeature } from './store/teachers.reducer';
 import { TeacherFormDialogComponent } from './components/teacher-form-dialog/teacher-form-dialog.component';
+import { TeacherDetailsComponent } from './pages/teacher-details/teacher-details.component';
 
 
 
 @NgModule({
   declarations: [
     TeachersComponent,
-    TeacherFormDialogComponent
+    TeacherFormDialogComponent,
+    TeacherDetailsComponent
   ],
   imports: [
     CommonModule,

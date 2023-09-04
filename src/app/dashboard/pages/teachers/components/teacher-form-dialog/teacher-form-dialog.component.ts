@@ -1,10 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Course } from '../../../courses/models';
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { TeachersActions } from '../../store/teachers.actions';
-import { selectCourseOptions } from '../../store/teachers.selectors';
 import { MatDialogRef } from '@angular/material/dialog';
 
 
@@ -13,38 +10,33 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './teacher-form-dialog.component.html',
   styleUrls: ['./teacher-form-dialog.component.scss']
 })
-export class TeacherFormDialogComponent implements OnInit{
+export class TeacherFormDialogComponent {
 
   title : string='';
 
   nombreControl = new FormControl<string|null>(null, [Validators.required, Validators.minLength(2)]);
   apellidoControl  = new FormControl<string|null>(null, [Validators.required, Validators.minLength(2)]);
   emailControl = new FormControl<string|null>(null, [Validators.required, Validators.email]);
-  cursoControl = new FormControl<number|null>(null, [Validators.required]);
+ 
 
   teacherForm= new FormGroup({
   
     nombre : this.nombreControl,
     apellido : this.apellidoControl,
     email : this.emailControl,
-    courseId: this.cursoControl
+  
     
   });
 
-  courseOption$ : Observable<Course[]>;
 
   constructor(
     private dialogRef: MatDialogRef<TeacherFormDialogComponent>,
     private store: Store
   ) {
-    
-  this.courseOption$   = this.store.select(selectCourseOptions);
+
   }
 
-  
-  ngOnInit(): void {
-    this.store.dispatch(TeachersActions.loadCourseOptions());
-  }
+
 
   
   onSubmit(): void {

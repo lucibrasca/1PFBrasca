@@ -3,7 +3,7 @@
 <div class="mb-4">
 <button *ngIf="isAdmin$ | async"  (click)="onCreateCourse()" mat-flat-button color="primary" type="button">
     <mat-icon>add</mat-icon>
-    <span appCabecera="20px">Alta curso</span>
+    <span appCabecera="20px">Nuevo</span>
 </button>
 </div>
 <table mat-table [dataSource]="(data$ | async) || []" class="mat-elevation-z8">
@@ -23,6 +23,10 @@
         <th mat-header-cell *matHeaderCellDef  appCabecera="20px"> Fecha Fin </th>
         <td mat-cell *matCellDef="let course"> {{course.fechaFin | date: 'shortDate' }} </td>
       </ng-container>
+      <ng-container matColumnDef="profesor">
+        <th mat-header-cell *matHeaderCellDef  appCabecera="20px"> Profesor </th>
+        <td mat-cell *matCellDef="let course"> {{ course.teacher.nombre + ' ' + course.teacher.apellido }} </td>
+    </ng-container>
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef  appCabecera="20px"> Acciones </th>
         <td mat-cell *matCellDef="let course">

@@ -3,11 +3,11 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, concatMap, map } from 'rxjs/operators';
 import { Observable, EMPTY, of } from 'rxjs';
 import { TeachersActions } from './teachers.actions';
-import { CreateTeacherData, Teacher, TeacherWithCourse } from '../models';
+import { CreateTeacherData, Teacher } from '../models';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Course } from '../../courses/models';
 import { Store } from '@ngrx/store';
+import { NotifierService } from 'src/app/core/services/notifier.service';
 
 
 @Injectable()
@@ -27,18 +27,7 @@ export class TeachersEffects {
     );
   });
 
-  loadCourseOptions$ = createEffect(() => {
-    return this.actions$.pipe(
-
-      ofType(TeachersActions.loadCourseOptions),
-      concatMap(() =>
-      
-        this.getCourseOptions().pipe(
-          map(data => TeachersActions.loadCourseOptionsSuccess({ data })),
-          catchError(error => of(TeachersActions.loadCourseOptionsFailure({ error }))))
-      )
-    );
-  });
+ 
 
   createTeacher$ = createEffect(() => {
     return this.actions$.pipe(
@@ -53,11 +42,12 @@ export class TeachersEffects {
     );
   });
 
-  createRegistationSuccess$ = createEffect(() => {
+  createTeacherSuccess$ = createEffect(() => {
     return this.actions$.pipe(
 
       ofType(TeachersActions.createTeacherSuccess),
-      map(() => this.store.dispatch(TeachersActions.loadTeachers())
+      map(() => {this.store.dispatch(TeachersActions.loadTeachers())
+                  this.notifier.showSuccess('Profesor guardado')}
       )
     );
   }, { dispatch: false});
@@ -77,29 +67,27 @@ export class TeachersEffects {
   });
 
 
-  deleteRegistationSuccess$ = createEffect(() => {
+  deleteTeacherSuccess$ = createEffect(() => {
     return this.actions$.pipe(
 
       ofType(TeachersActions.deleteTeacherSuccess),
-      map(() => this.store.dispatch(TeachersActions.loadTeachers())
+      map(() => {this.store.dispatch(TeachersActions.loadTeachers())
+                this.notifier.showSuccess('Profesor eliminado')}
       )
     );
   }, { dispatch: false});
 
 
 
-  constructor(private actions$: Actions, private httpClient: HttpClient, private store: Store) {}
+  constructor(private actions$: Actions, private httpClient: HttpClient, private store: Store, private notifier: NotifierService) {}
 
 
-private getTeacherFromDB(): Observable<TeacherWithCourse[]>
+private getTeacherFromDB(): Observable<Teacher[]>
 {
-  return this.httpClient.get<TeacherWithCourse[]>(environment.baseApiUrl+'/teachers?_expand=course');
+  return this.httpClient.get<Teacher[]>(environment.baseApiUrl+'/teachers');
 }
 
-private getCourseOptions() : Observable<Course[]>
-{
-  return this.httpClient.get<Course[]>(environment.baseApiUrl+'/courses');
-}
+
 
 private createTeacher( data: CreateTeacherData) : Observable<Teacher>
 {

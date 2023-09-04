@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { Student } from '../../students/models';
 import { Course } from '../../courses/models';
 import { Store } from '@ngrx/store';
+import { NotifierService } from 'src/app/core/services/notifier.service';
 
 
 @Injectable()
@@ -72,7 +73,9 @@ export class RegistrationEffects {
     return this.actions$.pipe(
 
       ofType(RegistrationActions.createRegistrationSuccess),
-      map(() => this.store.dispatch(RegistrationActions.loadRegistrations())
+      map(() =>{ this.store.dispatch(RegistrationActions.loadRegistrations())
+                this.notifier.showSuccess('Inscripción guardada')
+                  }
       )
     );
   }, { dispatch: false});
@@ -97,14 +100,15 @@ export class RegistrationEffects {
     return this.actions$.pipe(
 
       ofType(RegistrationActions.deleteRegistrationSuccess),
-      map(() => this.store.dispatch(RegistrationActions.loadRegistrations())
+      map(() => {this.store.dispatch(RegistrationActions.loadRegistrations())
+                  this.notifier.showSuccess('Inscripción eliminada')}
       )
     );
   }, { dispatch: false});
 
   
 
-  constructor(private actions$: Actions, private httpClient: HttpClient, private store: Store) {
+  constructor(private actions$: Actions, private httpClient: HttpClient, private store: Store, private notifier: NotifierService) {
 
   }
 

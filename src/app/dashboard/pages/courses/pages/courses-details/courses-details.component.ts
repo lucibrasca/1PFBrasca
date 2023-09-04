@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Student } from '../../../students/models';
-import { selectCourseDetailFechaFin, selectCourseDetailFechaInicio, selectCourseDetailName } from '../../store/course.selectors';
+import { selectCourseDetailFechaFin, selectCourseDetailFechaInicio, selectCourseDetailName, selectCourseDetailTeacher } from '../../store/course.selectors';
 import { StudentsService } from '../../../students/students.service';
 import { Store } from '@ngrx/store';
 import { CourseActions } from '../../store/course.actions';
@@ -17,13 +17,15 @@ import { RegistrationWithStudentAndCourse } from '../../../registrations/models'
 })
 export class CoursesDetailsComponent {
 
-  displayedColumns = ['id', 'name'];
-  students: Student[] = [];
-
+  displayedColumns = ['id', 'nombre', 'email'];
+  
+  
+  
   public cursoNombre$: Observable<string | undefined>;
   public fechaInicio$: Observable<Date | undefined>;
   public fechaFin$:  Observable<Date | undefined>;
   public profesor$:  Observable<string | undefined>;
+  public students$: Observable<Student[]>;
   
 
   constructor(
@@ -34,21 +36,17 @@ export class CoursesDetailsComponent {
     this.cursoNombre$ = this.store.select(selectCourseDetailName);
     this.fechaInicio$ = this.store.select(selectCourseDetailFechaInicio);
     this.fechaFin$ = this.store.select(selectCourseDetailFechaFin);
-    this.profesor$ = this.store.select(selectTeacherName);
-   
+    this.profesor$ = this.store.select(selectCourseDetailTeacher);
+    this.students$ = this.studentService.getStudentByCourseId(this.activatedRoute.snapshot.params['id']);
+ 
     
  
 
   }
 
   ngOnInit(): void {
-    this.store.dispatch(CourseActions.loadCoursesDetail({ courseId: this.activatedRoute.snapshot.params['id'] }))
-    this.store.dispatch(TeachersActions.loadTeacherDetail({ courseId: this.activatedRoute.snapshot.params['id'] }))
-  
+   this.store.dispatch(CourseActions.loadCoursesDetail({ courseId: this.activatedRoute.snapshot.params['id'] }));
 
-   /* this.studentService.getStudentByCourseId(this.activatedRoute.snapshot.params['id']).subscribe({
-      next: (students) => (this.students = students),
-    })*/
   }
 
 

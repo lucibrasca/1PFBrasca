@@ -44,7 +44,7 @@ export class UsersComponent  implements OnInit{
               contrasenia: result['contrasenia'],
               rol: result['rol']
           });
-          this.notifier.showSuccess('Usuario dado de alta');
+          this.notifier.showSuccess('Usuario guardado');
         }
       }
   });
@@ -53,10 +53,10 @@ export class UsersComponent  implements OnInit{
 
   onDeleteUser(userToDelete: User) : void
   {
-  if(confirm(`¿Está seguro que desea eliminar el usuario ${userToDelete.nombre}?`))
+  if(confirm(`¿Está seguro que desea eliminar el usuario ${userToDelete.nombre} ${userToDelete.apellido}?`))
     {
       this.userService.deleteUserId(userToDelete.id);
-      this.notifier.showSuccess('Usuario dado de baja');
+      this.notifier.showSuccess('Usuario eliminado');
     }
   }
 
@@ -68,7 +68,7 @@ export class UsersComponent  implements OnInit{
       next:(result)=>{
         if ( result ){
           this.userService.updateUserById(userToEdit.id, result);
-          this.notifier.showSuccess('Usuario modificado');
+          this.notifier.showSuccess('Usuario actualizado');
         }
       }
   });

@@ -1,0 +1,14 @@
+<button mat-icon-button routerLink="..">
+    <mat-icon>arrow_back</mat-icon>
+</button>
+<div class="p-6">
+<mat-card class="teacher-card">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{ nombre$ | async }}</mat-card-title>
+        <mat-card-subtitle>{{ email$ | async }}</mat-card-subtitle>
+        <img mat-card-md-image src="http://localhost:4200/assets/img/usuario.jpg" alt="">
+      </mat-card-title-group>
+    </mat-card-header>
+  </mat-card>
+</div>
